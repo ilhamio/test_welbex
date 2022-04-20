@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  front:
+    build: ./client
+    ports:
+      - "8080:3000"
+
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+      - front
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
